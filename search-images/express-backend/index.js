@@ -2,8 +2,17 @@ var request = require('request');
 var express = require('express');
 var app = express();
 
-app.get('/search-images', function(req, res){
-    const uri = 'https://api.pexels.com/v1/search?query=people';
+const cors = require('cors');
+app.use(cors({
+    origin: '*'
+}));
+
+app.get('/search', function(req, res){
+  const searchQuery = req.query.searchQuery;
+
+  //Do something when the searchQuery is not null.
+  if(searchQuery != null){
+    const uri = `https://api.pexels.com/v1/search?query=${searchQuery}`;
     const options = {
         method: "GET",
         headers: {
@@ -14,6 +23,9 @@ app.get('/search-images', function(req, res){
         }
     };
     request(uri, options).pipe(res);
+  }else{
+    response.end();
+  } 
 });
 
 app.listen(3001, () => {
