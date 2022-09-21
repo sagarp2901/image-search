@@ -35,7 +35,6 @@ app.get('/search', (req, res) => {
 
       Promise.all([pexelResultsPromise,unsplashPromise]).then((result) => {
         const finalResults = formatData(result);
-        console.log(finalResults);
         res.send(finalResults);
       });
     } else {
@@ -50,7 +49,6 @@ app.get('/search', (req, res) => {
 const formatData = (results) => {
   let pexelResults = results[0].data;
   let unsplashResults = results[1].data;
-
   let photosPexel = pexelResults.photos.map((res => {
     return {
       alt: res.alt,
@@ -70,7 +68,8 @@ const formatData = (results) => {
   const photosAll = photosPexel.concat(photosUnsplash);
   return {
     photos: photosAll,
-    page: pexelResults.page
+    page: pexelResults.page,
+    total: pexelResults.total_results+unsplashResults.total
   }
 }
 
