@@ -32,7 +32,9 @@ function App() {
     <ChakraProvider>
       <div className="App">
         <div className='input-header'>
-          <Input width={350}
+          <div>
+          <Input minWidth={350}
+          width={350}
           isRequired
           focusBorderColor='gray'
                 type="text"
@@ -40,9 +42,13 @@ function App() {
                 onChange={handleChange}
                 placeholder='Search Images' />
           <IconButton className='search-btn' aria-label='search' style={{marginRight: '3rem'}} colorScheme='gray' icon={<SearchIcon/>} onClick={() => search(page)}>Search</IconButton>
-          <IconButton aria-label='Previous' colorScheme='blue' icon={<ChevronLeftIcon/>} onClick={() => search(page-1)}>Previous</IconButton><div style={{marginRight: '1rem', marginLeft: '1rem'}}>Page: {page}</div>
-          <IconButton aria-label='Next' colorScheme='blue' icon={<ChevronRightIcon/>} onClick={() => search(page+1)}>Next</IconButton>
-          <div style={{paddingLeft: '3rem', fontSize: '18px'}}>Total Results: {total}</div>
+          </div>
+          <div className='page-results'>
+            <IconButton aria-label='Previous' colorScheme='blue' icon={<ChevronLeftIcon/>} onClick={() => search(page-1)}>Previous</IconButton>
+            <div style={{marginRight: '1rem', marginLeft: '1rem'}}>Page: {page}</div>
+            <IconButton aria-label='Next' colorScheme='blue' icon={<ChevronRightIcon/>} onClick={() => search(page+1)}>Next</IconButton>
+            <div style={{paddingLeft: '3rem', fontSize: '18px'}}>Total Results: {total}</div>
+          </div>
         </div>
         <div className='cards'>
           {photos && photos.map((photo: any)=> {

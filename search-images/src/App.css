@@ -19,6 +19,13 @@
 
     .input-header {
       margin-top: 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page-results {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -28,5 +35,16 @@
       margin-right: 3rem;
       position: relative;
       right: 40px;
+      top: -2px;
       border-radius: 0 5px 5px 0;
+      z-index: 1000;
+    }
+
+    @media only screen and (max-width: 768px) {
+      .input-header {
+        flex-direction: column;
+      }
+      .search-btn {
+        margin-right: 0 !important;
+      }
     }

@@ -15,7 +15,7 @@ app.get('/search', (req, res) => {
     const page = req.query.page;
     //Do something when the searchQuery is not null.
     if(searchQuery !== null) {
-      const pexelResultsPromise = axios.get(`https://api.pexels.com/v1/search?per_page=10&query=${searchQuery}&page=${page}`, {
+      const pexelResultsPromise = axios.get(`https://api.pexels.com/v1/search?per_page=5&query=${searchQuery}&page=${page}`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -24,7 +24,7 @@ app.get('/search', (req, res) => {
         }
       });
 
-      const unsplashPromise = axios.get(`https://api.unsplash.com/search/photos?per_page=10&query=${searchQuery}&page=${page}`, {
+      const unsplashPromise = axios.get(`https://api.unsplash.com/search/photos?per_page=4&query=${searchQuery}&page=${page}`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
