@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {getImages} from './service';
-import { Button, ChakraProvider, Input, Image, Text } from '@chakra-ui/react';
+import { Button, ChakraProvider, IconButton, Input, Image, Text  } from '@chakra-ui/react';
+import { ChevronLeftIcon, ChevronRightIcon, SearchIcon } from '@chakra-ui/icons';
 
 
 function App() {
@@ -30,26 +31,31 @@ function App() {
   return (
     <ChakraProvider>
       <div className="App">
-        <Button colorScheme='blue' onClick={() => search(page-1)}>Previous</Button><div>{page}</div><Button colorScheme='blue' onClick={() => search(page+1)}>Next</Button>
-        <Input
-              type="text"
-              value={query}
-              onChange={handleChange}
-              placeholder='Search Images' />
-              <Button colorScheme='blue' onClick={() => search(page)}>Search</Button>
-              <div>Total Results: {total}</div>
-              <div className='cards'>
-                {photos && photos.map((photo: any)=> {
-                  return <div className='card' key={photo.id}>
-                          <Image
-                            boxSize='300px'
-                            objectFit='cover'
-                            src={photo.url} alt={photo.alt}
-                          />
-                          <Text fontSize='sm' align='center'>{photo.alt}</Text>
-                    </div>
-                })}
+        <div className='input-header'>
+          <Input width={350}
+          isRequired
+          focusBorderColor='gray'
+                type="text"
+                value={query}
+                onChange={handleChange}
+                placeholder='Search Images' />
+          <IconButton className='search-btn' aria-label='search' style={{marginRight: '3rem'}} colorScheme='gray' icon={<SearchIcon/>} onClick={() => search(page)}>Search</IconButton>
+          <IconButton aria-label='Previous' colorScheme='blue' icon={<ChevronLeftIcon/>} onClick={() => search(page-1)}>Previous</IconButton><div style={{marginRight: '1rem', marginLeft: '1rem'}}>Page: {page}</div>
+          <IconButton aria-label='Next' colorScheme='blue' icon={<ChevronRightIcon/>} onClick={() => search(page+1)}>Next</IconButton>
+          <div style={{paddingLeft: '3rem', fontSize: '18px'}}>Total Results: {total}</div>
+        </div>
+        <div className='cards'>
+          {photos && photos.map((photo: any)=> {
+            return <div className='card' key={photo.id}>
+                    <Image
+                      boxSize='300px'
+                      objectFit='cover'
+                      src={photo.url} alt={photo.alt}
+                    />
+                    <Text fontSize='sm' align='center'>{photo.alt}</Text>
               </div>
+          })}
+        </div>
       </div>
     </ChakraProvider>
     
