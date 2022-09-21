@@ -3,15 +3,17 @@ import logo from './logo.svg';
 import './App.css';
 import {getImages} from './service';
 
+
+
 function App() {
 
-  const [images, setImages] = useState(null);
+  const [photos, setPhotos] = useState<any>(null);
   const [query, setQuery] = useState('');
 
   const search = () => {
     getImages(query).then(result => {
       console.log(result);
-      setImages(result);
+      setPhotos(result.photos);
     });
   }
 
@@ -26,6 +28,11 @@ function App() {
           value={query}
           onChange={handleChange}/>
           <button onClick={search}>Search</button>
+          <div>
+            {photos && photos.map((photo: any)=> {
+              return <div key={photo.id}><img src={photo.src.small} alt={photo.alt}/></div>
+            })}
+          </div>
     </div>
   );
 }
