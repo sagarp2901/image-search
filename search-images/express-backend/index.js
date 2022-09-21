@@ -53,7 +53,7 @@ const formatData = (results) => {
     return {
       alt: res.alt,
       id: res.id,
-      url: res.src.small
+      url: res.src.large
     }
   }));
 
@@ -61,7 +61,7 @@ const formatData = (results) => {
     return {
       alt: res.alt_description,
       id: res.id,
-      url: res.urls.small
+      url: res.urls.full
     }
   }));
 

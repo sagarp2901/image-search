@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {getImages} from './service';
-
+import { Button, ChakraProvider, Input, Image, Text } from '@chakra-ui/react';
 
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
   const [query, setQuery] = useState('');
 
   const search = (page: number) => {
-    if(page > 0) {
+    if(page > 0 && query.length) {
       getImages(query, page).then(result => {
         console.log(result);
         setPhotos(result.photos);
@@ -28,20 +28,31 @@ function App() {
  }
 
   return (
-    <div className="App">
-     <button onClick={() => search(page-1)}>Previous</button><div>{page}</div><button onClick={() => search(page+1)}>Next</button>
-     <input
-          type="text"
-          value={query}
-          onChange={handleChange}/>
-          <button onClick={() => search(page)}>Search</button>
-          <div>Total Results: {total}</div>
-          <div>
-            {photos && photos.map((photo: any)=> {
-              return <div key={photo.id}><img src={photo.url} alt={photo.alt}/></div>
-            })}
-          </div>
-    </div>
+    <ChakraProvider>
+      <div className="App">
+        <Button colorScheme='blue' onClick={() => search(page-1)}>Previous</Button><div>{page}</div><Button colorScheme='blue' onClick={() => search(page+1)}>Next</Button>
+        <Input
+              type="text"
+              value={query}
+              onChange={handleChange}
+              placeholder='Search Images' />
+              <Button colorScheme='blue' onClick={() => search(page)}>Search</Button>
+              <div>Total Results: {total}</div>
+              <div className='cards'>
+                {photos && photos.map((photo: any)=> {
+                  return <div className='card' key={photo.id}>
+                          <Image
+                            boxSize='300px'
+                            objectFit='cover'
+                            src={photo.url} alt={photo.alt}
+                          />
+                          <Text fontSize='sm' align='center'>{photo.alt}</Text>
+                    </div>
+                })}
+              </div>
+      </div>
+    </ChakraProvider>
+    
   );
 }
 
